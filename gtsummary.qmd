@@ -1,0 +1,152 @@
+---
+title: "gtsummary"
+subtitle: "Using gtsummary package to create publication ready tables"
+author:
+  - name: Hannah Bowley
+  - name: Micaela Lembo
+format: html
+editor: visual
+bibliography: references.bib
+theme: cyborg
+filters: 
+  - line-highlight
+---
+
+## What is gtsummary?
+
+- R tool that creates publication ready tables 
+
+- Summarizes data sets, regression models and other analysis
+
+- Highly customizable
+
+### Install gtsummary package
+
+```{r, install }
+#| echo: true
+#install.packages("gtsummary")
+```
+
+### Load in libraries
+
+```{r}
+#| echo: true
+#| message: false
+library(gtsummary)
+library(gapminder)
+library(tidyverse)
+```
+
+### Create Basic gtsummary table
+```{r}
+#| echo: true
+table1 <- 
+  gapminder %>%
+  filter(year == 2007) %>% 
+  select( gdpPercap, lifeExp, pop ) %>% 
+  tbl_summary()
+
+table1
+  
+```
+
+### Customization option: **by()**
+```{r}
+#| echo: true
+#| source-line-numbers: "6"
+table1 <- 
+  gapminder %>%
+  filter(year == 2007) %>% 
+  select( gdpPercap, lifeExp, pop ,continent ) %>% 
+  tbl_summary(
+    by = continent
+  )
+
+table1
+
+```
+### Customization option: **label()**, **modify_header()**, **bold_labels()**
+```{r}
+#| echo: true
+#| source-line-numbers: "7-13"
+table1 <- 
+  gapminder %>%
+  filter(year == 2007) %>% 
+  select( gdpPercap, lifeExp, pop ,continent ) %>% 
+  tbl_summary(
+    by = continent, 
+    label = list (gdpPercap ~ "GDP per capita",
+                  lifeExp ~ "Life expectancy",
+                  pop ~ "Population"
+                  ) 
+    ) %>% 
+  modify_header(label = "**Variables**")  %>% 
+  bold_labels()
+ 
+
+table1
+
+```
+### Customization change default statistics:
+- statistics()
+- add p-value: add_p()
+```{r}
+#| echo: true
+#| source-line-numbers: "12,15"
+table1 <- 
+  gapminder %>%
+  filter(year == 2007) %>% 
+  select( gdpPercap, lifeExp, pop ,continent ) %>% 
+  tbl_summary(
+    by = continent, 
+    label = list (
+      gdpPercap ~ "GDP per capita",
+      lifeExp ~ "Life expectancy",
+      pop ~ "Population"
+      ) ,
+    statistic = list( gdpPercap ~ "{mean}")
+    ) %>% 
+  modify_header(label = "**Variables**") %>% 
+  add_p() 
+
+table1
+```
+### Customization to add a column with overall statistics: **add_overall()**
+```{r}
+#| echo: true
+#| source-line-numbers: "15"
+table1 <- 
+  gapminder %>%
+  filter(year == 2007) %>% 
+  select( gdpPercap, lifeExp, pop ,continent ) %>% 
+  tbl_summary(
+    by = continent, 
+    label = list (
+      gdpPercap ~ "GDP per capita",
+      lifeExp ~ "Life expectancy",
+      pop ~ "Population"
+      ) ,
+    statistic = list( gdpPercap ~ "{mean}")
+    ) %>% 
+  modify_header(label = "**Variables**") %>% 
+  add_overall( col_label = "**Global**",last = TRUE ) %>% 
+  add_p()
+
+table1
+
+```
+
+
+## Using gtsummary for regression models
+```{r}
+#| echo: true
+mod1 <- glm(lifeExp ~ year + continent + continent*year, data = gapminder)
+
+table2 <- tbl_regression(mod1) %>% 
+  bold_labels() %>% 
+  bold_p() %>% 
+  modify_caption("Table 2: Regression results for Life Expectancy")
+
+table2
+
+```
