@@ -1,0 +1,4 @@
+- source: gtsummary.qmd
+  quarto-pub:
+    - id: 1be7fafb-bad3-4ed2-a6ed-64b61d1a840e
+      url: 'https://quartopub.com/sites/hbowley/gtsummary'

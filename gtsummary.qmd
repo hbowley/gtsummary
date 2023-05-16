@@ -5,9 +5,10 @@ author:
   - name: Hannah Bowley
   - name: Micaela Lembo
 format: html
+toc: true
 editor: visual
 bibliography: references.bib
-theme: cyborg
+theme: lux
 filters: 
   - line-highlight
 ---
@@ -19,6 +20,8 @@ filters:
 - Summarizes data sets, regression models and other analysis
 
 - Highly customizable
+
+![gtsummary](logo.png)
 
 ### Install gtsummary package
 
@@ -75,10 +78,11 @@ table1 <-
   select( gdpPercap, lifeExp, pop ,continent ) %>% 
   tbl_summary(
     by = continent, 
-    label = list (gdpPercap ~ "GDP per capita",
-                  lifeExp ~ "Life expectancy",
-                  pop ~ "Population"
-                  ) 
+    label = list(
+      gdpPercap ~ "GDP per capita",
+      lifeExp ~ "Life expectancy",
+      pop ~ "Population"
+      ) 
     ) %>% 
   modify_header(label = "**Variables**")  %>% 
   bold_labels()
@@ -87,9 +91,8 @@ table1 <-
 table1
 
 ```
-### Customization change default statistics:
-- statistics()
-- add p-value: add_p()
+### Customization change default statistics: **statistics ()**, **add_p()**
+
 ```{r}
 #| echo: true
 #| source-line-numbers: "12,15"
@@ -99,7 +102,7 @@ table1 <-
   select( gdpPercap, lifeExp, pop ,continent ) %>% 
   tbl_summary(
     by = continent, 
-    label = list (
+    label = list(
       gdpPercap ~ "GDP per capita",
       lifeExp ~ "Life expectancy",
       pop ~ "Population"
