@@ -15,11 +15,11 @@ filters:
 
 ## What is gtsummary?
 
-- R tool that creates publication ready tables 
+-   R tool that creates publication ready tables
 
-- Summarizes data sets, regression models and other analysis
+-   Summarizes data sets, regression models and other analysis
 
-- Highly customizable
+-   Highly customizable (edit)
 
 ![gtsummary](logo.png)
 
@@ -41,6 +41,7 @@ library(tidyverse)
 ```
 
 ### Create Basic gtsummary table
+
 ```{r}
 #| echo: true
 table1 <- 
@@ -54,6 +55,7 @@ table1
 ```
 
 ### Customization option: **by()**
+
 ```{r}
 #| echo: true
 #| source-line-numbers: "6"
@@ -68,7 +70,9 @@ table1 <-
 table1
 
 ```
+
 ### Customization option: **label()**, **modify_header()**, **bold_labels()**
+
 ```{r}
 #| echo: true
 #| source-line-numbers: "7-13"
@@ -91,6 +95,7 @@ table1 <-
 table1
 
 ```
+
 ### Customization change default statistics: **statistics ()**, **add_p()**
 
 ```{r}
@@ -114,7 +119,9 @@ table1 <-
 
 table1
 ```
+
 ### Customization to add a column with overall statistics: **add_overall()**
+
 ```{r}
 #| echo: true
 #| source-line-numbers: "15"
@@ -139,8 +146,8 @@ table1
 
 ```
 
-
 ## Using gtsummary for regression models
+
 ```{r}
 #| echo: true
 mod1 <- glm(lifeExp ~ year + continent + continent*year, data = gapminder)
