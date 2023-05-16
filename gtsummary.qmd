@@ -19,7 +19,7 @@ filters:
 
 -   Summarizes data sets, regression models and other analysis
 
--   Highly customizable (edit)
+-   Highly customizable test
 
 ![gtsummary](logo.png)
 
@@ -61,10 +61,13 @@ table1
 #| source-line-numbers: "6"
 table1 <- 
   gapminder %>%
-  filter(year == 2007) %>% 
+  # Year we are intersted in
+  filter(year == 2007) %>%  
+  # variables we want to look at 
   select( gdpPercap, lifeExp, pop ,continent ) %>% 
   tbl_summary(
-    by = continent
+    # organized by continents
+    by = continent  
   )
 
 table1
@@ -82,12 +85,14 @@ table1 <-
   select( gdpPercap, lifeExp, pop ,continent ) %>% 
   tbl_summary(
     by = continent, 
-    label = list(
+    # Chaning the name of our rows 
+    label = list( 
       gdpPercap ~ "GDP per capita",
       lifeExp ~ "Life expectancy",
       pop ~ "Population"
       ) 
     ) %>% 
+  # Change header to variables
   modify_header(label = "**Variables**")  %>% 
   bold_labels()
  
