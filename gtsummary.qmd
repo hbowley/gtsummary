@@ -46,8 +46,11 @@ library(tidyverse)
 #| echo: true
 table1 <- 
   gapminder %>%
+  # Year we are interested in
   filter(year == 2007) %>% 
+  # Columns we want to look at
   select( gdpPercap, lifeExp, pop ) %>% 
+  # function to create the summary table
   tbl_summary()
 
 table1
@@ -58,15 +61,13 @@ table1
 
 ```{r}
 #| echo: true
-#| source-line-numbers: "6"
+#| source-line-numbers: "5-8"
 table1 <- 
   gapminder %>%
-  # Year we are intersted in
   filter(year == 2007) %>%  
-  # variables we want to look at 
   select( gdpPercap, lifeExp, pop ,continent ) %>% 
   tbl_summary(
-    # organized by continents
+    # group by continent
     by = continent  
   )
 
@@ -144,7 +145,7 @@ table1 <-
     statistic = list( gdpPercap ~ "{mean}")
     ) %>% 
   modify_header(label = "**Variables**") %>% 
-  add_overall( col_label = "**Global**",last = TRUE ) %>% 
+  add_overall(last = TRUE) %>% 
   add_p()
 
 table1
