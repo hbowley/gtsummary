@@ -194,7 +194,9 @@ table1
 
 ```{r}
 #| echo: true
-mod1 <- glm(lifeExp ~ year + continent + continent*year, data = gapminder)
+mod1 <- lm(lifeExp ~ year + continent + continent*year, data = gapminder)
+
+summary(mod1)
 
 table2 <- tbl_regression(mod1) %>% 
   bold_labels() %>% 
@@ -205,4 +207,9 @@ table2 <- tbl_regression(mod1) %>%
 table2
 
 ```
+
+[@sjoberg_gtsummary_2023]
+
+## Exporting GT Summary tables to Word Documents
+
 
