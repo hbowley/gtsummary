@@ -224,4 +224,6 @@ table2
 
 ## Exporting GT Summary tables to Word Documents
 
+- gtsummary is now compatible with Word Documents. 
+- These are the steps to follow in order to upload your table to a word document
 
