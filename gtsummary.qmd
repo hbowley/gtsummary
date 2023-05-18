@@ -19,7 +19,7 @@ filters:
 
 -   Summarizes data sets, regression models and other analysis
 
--   Highly customizable test
+-   Highly customizable
 
 ![gtsummary](logo.png)
 
@@ -27,7 +27,14 @@ filters:
 
 ```{r, install }
 #| echo: true
-#install.packages("gtsummary")
+# install.packages("gtsummary")
+```
+
+### Data Source: gapminder
+
+```{r}
+#| echo: true
+# install.packages("gapminder")
 ```
 
 ### Load in libraries
@@ -40,14 +47,26 @@ library(gapminder)
 library(tidyverse)
 ```
 
-### Create Basic gtsummary table
+### About gapminder
+
+```{r}
+#| code-fold: true
+
+head(gapminder)
+str(gapminder)
+```
+
+### Create basic gtsummary table
 
 ```{r}
 #| echo: true
 table1 <- 
   gapminder %>%
+  # Year we are interested in
   filter(year == 2007) %>% 
+  # Columns we want to look at
   select( gdpPercap, lifeExp, pop ) %>% 
+  # function to create the summary table
   tbl_summary()
 
 table1
@@ -56,17 +75,19 @@ table1
 
 ### Customization option: **by()**
 
+-   by() : allows users to select which variable they would like to use for group comparison.
+
+    -   In the example below, we chose continents, but another option could have been countries.
+
 ```{r}
 #| echo: true
-#| source-line-numbers: "6"
+#| source-line-numbers: "5-8"
 table1 <- 
   gapminder %>%
-  # Year we are intersted in
   filter(year == 2007) %>%  
-  # variables we want to look at 
   select( gdpPercap, lifeExp, pop ,continent ) %>% 
   tbl_summary(
-    # organized by continents
+    # group by continent
     by = continent  
   )
 
@@ -76,24 +97,30 @@ table1
 
 ### Customization option: **label()**, **modify_header()**, **bold_labels()**
 
+-   label(): Allows you to rename the variables from their default names within dataset
+-   modify_header(): Change the default header label within your chart
+    -   in the example below we changed it to the word "variables" bolded
+-   bold_labels(): Makes the rows and column names bold
+
 ```{r}
 #| echo: true
-#| source-line-numbers: "7-13"
+#| source-line-numbers: "7-17"
 table1 <- 
   gapminder %>%
   filter(year == 2007) %>% 
   select( gdpPercap, lifeExp, pop ,continent ) %>% 
   tbl_summary(
     by = continent, 
-    # Chaning the name of our rows 
+    # Changing the name of our rows 
     label = list( 
       gdpPercap ~ "GDP per capita",
       lifeExp ~ "Life expectancy",
       pop ~ "Population"
       ) 
     ) %>% 
-  # Change header to variables
+  # Change header name
   modify_header(label = "**Variables**")  %>% 
+  # Bold row and column names
   bold_labels()
  
 
@@ -103,9 +130,16 @@ table1
 
 ### Customization change default statistics: **statistics ()**, **add_p()**
 
+-   statistics(): customize to calculate specified summary statistic; default option for continuous variables is median{IQR}
+    -   statistics options continuous variables:
+        -   *median, mean, sd, var, min, max, sum, p##*: any integer percentage, *foo*: any function of the form foo
+    -   statistics options categorical variables:
+        -   *n*: frequency, *N*: denominator or sample size, *p*: percentage
+-   add_p(): Add in p values as a new column; default adds p-value as last column in table
+
 ```{r}
 #| echo: true
-#| source-line-numbers: "12,15"
+#| source-line-numbers: "12,13,14,16"
 table1 <- 
   gapminder %>%
   filter(year == 2007) %>% 
@@ -117,7 +151,8 @@ table1 <-
       lifeExp ~ "Life expectancy",
       pop ~ "Population"
       ) ,
-    statistic = list( gdpPercap ~ "{mean}")
+    # Calculate mean for gdpPercap variable
+    statistic = list(gdpPercap ~ "{mean}")
     ) %>% 
   modify_header(label = "**Variables**") %>% 
   add_p() 
@@ -126,6 +161,8 @@ table1
 ```
 
 ### Customization to add a column with overall statistics: **add_overall()**
+
+-   add_overall(): Gives an additional column with the summary of all observations without grouping established with by() function
 
 ```{r}
 #| echo: true
@@ -144,7 +181,7 @@ table1 <-
     statistic = list( gdpPercap ~ "{mean}")
     ) %>% 
   modify_header(label = "**Variables**") %>% 
-  add_overall( col_label = "**Global**",last = TRUE ) %>% 
+  add_overall(last = TRUE) %>% 
   add_p()
 
 table1
@@ -153,15 +190,34 @@ table1
 
 ## Using gtsummary for regression models
 
+-   modify_caption(): adds a title to the table
+-   bold_p(): makes all significant p-values bold
+
 ```{r}
 #| echo: true
-mod1 <- glm(lifeExp ~ year + continent + continent*year, data = gapminder)
+mod1 <- lm(lifeExp ~ year + continent + continent*year, data = gapminder)
+
+summary(mod1)
 
 table2 <- tbl_regression(mod1) %>% 
   bold_labels() %>% 
   bold_p() %>% 
+  # includes caption on top of table
   modify_caption("Table 2: Regression results for Life Expectancy")
 
 table2
 
 ```
+
+[@sjoberg_gtsummary_2023]
+
+## Exporting GT Summary tables to Word Documents
+
+- gtsummary is now compatible with Word Documents. 
+- These are the steps to follow in order to upload your table to a word document
+
+```{r}
+
+```
+
+
