@@ -189,15 +189,23 @@ table1
 
 ## Using gtsummary for regression models
 
--  modify_caption(): adds a title to the table
--  bold_p(): makes all significant p-values bold
+1. First a linear regression model needs to be created
+
+- the standard R summary output (shown below) is not publication ready, but the gtsummary package makes it looked more polished 
 
 ```{r}
 #| echo: true
 mod1 <- lm(lifeExp ~ year + continent + continent*year, data = gapminder)
 
 summary(mod1)
+```
 
+#### tbl_regression() creates a polished summary table for the linear regression model
+-  modify_caption(): adds a title to the table
+-  bold_p(): makes all significant p-values bold
+
+```{r}
+#| echo: true
 table2 <- tbl_regression(mod1) %>% 
   bold_labels() %>% 
   bold_p() %>% 
@@ -205,8 +213,12 @@ table2 <- tbl_regression(mod1) %>%
   modify_caption("Table 2: Regression results for Life Expectancy")
 
 table2
-
 ```
+
+
+
+
+
 
 [@sjoberg_gtsummary_2023]
 
