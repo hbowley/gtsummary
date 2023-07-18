@@ -29,6 +29,7 @@ filters:
 #| echo: true
 # install.packages("gtsummary")
 ```
+
 ### Data Source: gapminder
 
 ```{r}
@@ -47,6 +48,7 @@ library(tidyverse)
 ```
 
 ### About gapminder
+
 ```{r}
 #| code-fold: true
 
@@ -128,12 +130,11 @@ table1
 
 ### Customization change default statistics: **statistics ()**, **add_p()**
 
--   statistics(): customize to calculate specified summary statistic; default option for continuous variables is median{IQR} 
-    - statistics options continuous variables: 
-      - *median, mean, sd, var, min, max, sum, p##*: any integer percentage, *foo*: any function of the form foo
-    - statistics options categorical variables: 
-      - *n*: frequency, *N*: denominator or sample size, *p*: percentage
-
+-   statistics(): customize to calculate specified summary statistic; default option for continuous variables is median{IQR}
+    -   statistics options continuous variables:
+        -   *median, mean, sd, var, min, max, sum, p##*: any integer percentage, *foo*: any function of the form foo
+    -   statistics options categorical variables:
+        -   *n*: frequency, *N*: denominator or sample size, *p*: percentage
 -   add_p(): Add in p values as a new column; default adds p-value as last column in table
 
 ```{r}
@@ -161,7 +162,7 @@ table1
 
 ### Customization to add a column with overall statistics: **add_overall()**
 
--   add_overall(): Gives an additional column with  the summary of all observations without grouping established with by() function
+-   add_overall(): Gives an additional column with the summary of all observations without grouping established with by() function
 
 ```{r}
 #| echo: true
@@ -189,9 +190,9 @@ table1
 
 ## Using gtsummary for regression models
 
-1. First a linear regression model needs to be created
+1.  First a linear regression model needs to be created
 
-- the standard R summary output (shown below) is not publication ready, but the gtsummary package makes it looked more polished 
+-   the standard R summary output (shown below) is not publication ready, but the gtsummary package makes it looked more polished
 
 ```{r}
 #| echo: true
@@ -201,8 +202,9 @@ summary(mod1)
 ```
 
 #### tbl_regression() creates a polished summary table for the linear regression model
--  modify_caption(): adds a title to the table
--  bold_p(): makes all significant p-values bold
+
+-   modify_caption(): adds a title to the table
+-   bold_p(): makes all significant p-values bold
 
 ```{r}
 #| echo: true
@@ -215,13 +217,6 @@ table2 <- tbl_regression(mod1) %>%
 table2
 ```
 
-
-
-
-
-
 [@sjoberg_gtsummary_2023]
 
 ## Exporting GT Summary tables to Word Documents
-
-
