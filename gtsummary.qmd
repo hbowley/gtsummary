@@ -220,3 +220,10 @@ table2
 [@sjoberg_gtsummary_2023]
 
 ## Exporting GT Summary tables to Word Documents
+<<<<<<< HEAD
+=======
+
+- gtsummary is now compatible with Word Documents. 
+- These are the steps to follow in order to upload your table to a word document
+
+>>>>>>> 51cf15adc7015f8beba25de7c9c98df7bea8226e
