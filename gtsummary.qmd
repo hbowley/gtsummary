@@ -223,3 +223,14 @@ table2
 - gtsummary is now compatible with Word Documents. 
 - These are the steps to follow in order to upload your table to a word document
 
+```{r}
+#| echo: true
+#| eval: false
+#| message: false
+#| warning: false
+tbl %>%
+  as_gt() %>%
+  # If you are using word, use extension .docx 
+  # alternative options: .html, .png, .pdg, .tex, .rtf
+  gt::gtsave(filename = ".") 
+```
